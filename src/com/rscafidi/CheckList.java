@@ -2,14 +2,22 @@ package com.rscafidi;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public abstract class CheckList {
     String name;
     ArrayList<User> users = new ArrayList<User>();
     ArrayList<Item> items = new ArrayList<Item>();
+    Long timeCreated;
 
+    public CheckList() {
+        this.name = "DefaultListName";
+    }
 
     public CheckList(String listName) {
+        timeCreated = System.currentTimeMillis();
         this.name = listName;
     }
 
@@ -22,6 +30,7 @@ public abstract class CheckList {
 
             System.out.println("1 - Change item name");
             System.out.println("2 - Toggle status");
+            System.out.println("3 - List item details");
             System.out.println("0 - exit");
             System.out.println();
             if (in.hasNextInt()) {
@@ -46,6 +55,18 @@ public abstract class CheckList {
                     else {
                         item.timeCompleted = null;
                     }
+                    break;
+                case 3:
+                    item.printItemDetails();
+                    break;
+                case 0:
+                    System.out.println("Returning to List menu");
+                    break;
+                default:
+                    System.out.println("Invalid input.");
+                    break;
+
+
             }
         }
     }

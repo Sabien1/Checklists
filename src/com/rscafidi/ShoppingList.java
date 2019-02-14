@@ -5,4 +5,9 @@ public class ShoppingList extends CheckList {
     public ShoppingList(String listName) {
         super(listName);
     }
+
+    public ShoppingList() {
+        super();
+    }
+
 }

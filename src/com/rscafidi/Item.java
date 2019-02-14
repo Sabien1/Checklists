@@ -8,9 +8,16 @@ public class Item {
     String name;
     Boolean completed = false;
     Long timeCompleted = null;
+    Long timeCreated;
+
+    public Item() {
+        this.name = "DefaultItemName";
+        timeCreated = System.currentTimeMillis();
+    }
 
     public Item(String name){
         this.name = name;
+        timeCreated = System.currentTimeMillis();
     }
 
     public void setCompleted() {

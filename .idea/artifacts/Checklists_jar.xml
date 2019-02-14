@@ -3,8 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Checklists_jar</output-path>
     <root id="archive" name="Checklists.jar">
       <element id="module-output" name="Checklists" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/org.jetbrains.annotations-1.0.0.jar" path-in-jar="/" />
-      <element id="library" level="project" name="org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.0.0" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations-java5/16.0.2/annotations-java5-16.0.2.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
