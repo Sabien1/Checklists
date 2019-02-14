@@ -1,12 +1,11 @@
 package com.rscafidi;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class User {
     String userName;
     ArrayList<CheckList> lists = new ArrayList<CheckList>();
-    String LIST_ERROR_MESSAGE = "The list was not created.";
+    private String LIST_ERROR_MESSAGE = "The list was not created.";
 
     User(String name) {
         //System.out.println("construct user");
@@ -14,8 +13,8 @@ public class User {
 
     }
 
-    public void createList(String listName, int type){
-        if (listName == null || listName == "") {
+    public void createList(ListDriver driver, String listName, int type){
+        if (listName == null || listName.equals("")) {
             System.out.println(LIST_ERROR_MESSAGE + "List Name is required.");
         }
         else {
@@ -25,7 +24,12 @@ public class User {
                     lists.add(s);
                     break;
                 case 2:
-
+                    Integer priority;
+                    System.out.println("Indicate list priority.");
+                    //reuse get menu option to get an integer
+                    priority = driver.getMenuOption();
+                    ToDoList td = new ToDoList(listName, priority, this.userName);
+                    lists.add(td);
                     break;
                 case 3:
                     //goal list
@@ -40,51 +44,43 @@ public class User {
         }
     }
 
-    public void editList(CheckList list) {
+    public void editList(CheckList list, ListDriver driver) {
         int answer = -1;
         String stringAnswer = "";
         Item currentItem = null;
-        Scanner in = new Scanner(System.in);
         System.out.println("EDITING LIST " + list.name);
         System.out.println();
         while (answer != 0) {
-
+            printListItems(list);
             System.out.println("1 - Change List Name");
             System.out.println("2 - Add list item");
             System.out.println("3 - Edit list item");
             System.out.println("4 - Remove list item");
             System.out.println("5 - Add user to list");
-            System.out.println("0 - exit");
+            System.out.println("0 - Back to lists menu");
             System.out.println();
-            if (in.hasNextInt()){
-                answer = in.nextInt();
-            }
-            else {
-                in.nextLine();
-            }
+            answer = driver.getMenuOption();
             switch(answer){
                 case 1:
                     // Change list name
                     System.out.println("Enter new list name:");
-                    stringAnswer = in.next();
+                    stringAnswer = driver.getStringInput();
                     list.name = stringAnswer;
                     System.out.println("List name updated to " + stringAnswer);
-                    printLists();
+                    driver.printLists(this);
                     break;
                 case 2:
                     // Add item
-                    in.nextLine();
                     System.out.println("Enter name for list item:");
-                    stringAnswer = in.nextLine();
-                    list.items.add(new Item(stringAnswer));
-                    printLists();
+                    stringAnswer = driver.getStringInput();
+                    Item thisItem = new Item(stringAnswer);
+                    list.items.add(thisItem);
+
                     break;
                 case 3:
                     // Edit item
-                    in.nextLine();
-                    printListItems(list);
                     System.out.println("Enter item name to edit:");
-                    stringAnswer = in.nextLine();
+                    stringAnswer = driver.getStringInput();
                     currentItem = list.getCurrentItemBasedOnName(stringAnswer);
                     if (currentItem == null) {
                         System.out.println("The item does not exist.");
@@ -95,7 +91,14 @@ public class User {
                     break;
                 case 4:
                     // Remove list item
-                    //list.deleteItem();
+                    System.out.println("Enter item name to delete:");
+                    stringAnswer = driver.getStringInput();
+                    if (list.items.indexOf(list.getCurrentItemBasedOnName(stringAnswer)) < 0) {
+                        System.out.println("The item does not exist.");
+                    }
+                    else {
+                        list.items.remove(list.getCurrentItemBasedOnName(stringAnswer));
+                    }
                     break;
                 case 5:
                     // Add user to list
@@ -109,30 +112,6 @@ public class User {
                     System.out.println("Choose an option:");
 
             }
-        }
-    }
-
-    public void printLists() {
-        if (lists == null || lists.isEmpty()) {
-            System.out.println("There are no lists to display.");
-        }
-        else {
-            System.out.println("Lists:");
-            int size = lists.size();
-            CheckList currentList;
-            Item currentItem;
-            for (int i = 0; i < size; ++i) {
-                currentList = lists.get(i);
-                System.out.println(currentList.name);
-
-                int listItemSize = currentList.items.size();
-                for (int j = 0; j < listItemSize; ++j) {
-                    currentItem = currentList.items.get(j);
-                    System.out.print('\t' + currentItem.name + '\n');
-                }
-
-            }
-            System.out.println();
         }
     }
 
