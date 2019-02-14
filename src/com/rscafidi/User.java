@@ -6,24 +6,26 @@ public class User {
     String userName;
     ArrayList<CheckList> lists = new ArrayList<CheckList>();
     private String LIST_ERROR_MESSAGE = "The list was not created.";
+    ListFactory listFactory;
 
-    User(String name) {
+    User(String name, ListFactory listFactory) {
         //System.out.println("construct user");
         this.userName = name;
-
+        this.listFactory = listFactory;
     }
 
-    public void createList(ListDriver driver, String listName, int type){
+    public void createList(ListDriver driver, String listName, String type){
         if (listName == null || listName.equals("")) {
             System.out.println(LIST_ERROR_MESSAGE + "List Name is required.");
         }
         else {
             switch(type) {
-                case 1:
+                case "ShoppingList":
+                    ShoppingList s = listFactory.createList(type, listName);
                     ShoppingList s = new ShoppingList(listName);
                     lists.add(s);
                     break;
-                case 2:
+                case "ToDoList":
                     Integer priority;
                     System.out.println("Indicate list priority.");
                     //reuse get menu option to get an integer
@@ -31,11 +33,12 @@ public class User {
                     ToDoList td = new ToDoList(listName, priority, this.userName);
                     lists.add(td);
                     break;
-                case 3:
+                case "GoalList":
                     //goal list
-                    break;
-                case 4:
+                    //break;
+                case "TeamList":
                     //team list
+                    System.out.println("Not implemented");
                     break;
                 default:
                     System.out.println(LIST_ERROR_MESSAGE + "No valid list type supplied.");
@@ -46,6 +49,7 @@ public class User {
 
     public void editList(CheckList list, ListDriver driver) {
         int answer = -1;
+        String listType = list.name;
         String stringAnswer = "";
         Item currentItem = null;
         System.out.println("EDITING LIST " + list.name);
@@ -73,8 +77,7 @@ public class User {
                     // Add item
                     System.out.println("Enter name for list item:");
                     stringAnswer = driver.getStringInput();
-                    Item thisItem = new Item(stringAnswer);
-                    list.items.add(thisItem);
+                    list.addItem(stringAnswer);
 
                     break;
                 case 3:

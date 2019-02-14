@@ -8,17 +8,25 @@ import java.text.SimpleDateFormat;
 
 public abstract class CheckList {
     String name;
+    String listType;
     ArrayList<User> users = new ArrayList<User>();
     ArrayList<Item> items = new ArrayList<Item>();
     Long timeCreated;
+    ItemFactory itemFactory;
+
+    public CheckList(ItemFactory factory) {
+        this.itemFactory = factory;
+    }
 
     public CheckList() {
         this.name = "DefaultListName";
     }
 
-    public CheckList(String listName) {
+    public CheckList(String listName, ItemFactory itemFactory, String listType) {
         timeCreated = System.currentTimeMillis();
         this.name = listName;
+        this.itemFactory = itemFactory;
+        this.listType = listType;
     }
 
     public void printItemEditMenu(Item item) {
@@ -77,8 +85,9 @@ public abstract class CheckList {
 
     }
 
-    public void addItem(Item item) {
-        this.items.add(item);
+    public void addItem(String itemType) {
+        Item item = itemFactory.createItem(itemType);
+        item.name =
     }
 
     public void deleteItem(Item item) {

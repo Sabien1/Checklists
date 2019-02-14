@@ -2,12 +2,16 @@ package com.rscafidi;
 
 public class ItemFactory {
 
-    public Item createItem(String type, String name) {
+    public ItemFactory ItemFactory() {
+        return new ItemFactory();
+    }
+
+    public Item createItem(String type) {
         if (type.equals("ShoppingItem")) {
-            return new Item(name);
+            return new Item();
         }
         else if (type.equals("ToDoItem")) {
-            return new ToDoItem(name);
+            return new ToDoItem();
         }
         return null;
     }

@@ -17,7 +17,7 @@ public class Main {
         System.out.println();
         System.out.println("Enter your user name to start.");
         name = in.nextLine();
-        User currentUser = new User(name);
+        User currentUser = new User(name, new ListFactory());
         System.out.println("Welcome, " + currentUser.userName);
         driver.users.add(currentUser);
         driver.printMenu(currentUser);
