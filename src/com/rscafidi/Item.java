@@ -8,8 +8,8 @@ import java.util.Date;
 public class Item {
     String name;
     Boolean completed = false;
-    Long timeCompleted = null;
-    Long timeCreated;
+    long timeCompleted = 0;
+    long timeCreated;
 
     public Item() {
         this.name = "DefaultItemName";
@@ -30,7 +30,7 @@ public class Item {
 
         System.out.println("\t" + "Name: " + this.name);
         System.out.println("\t" + "Completed: " + this.completed);
-        if (!(timeCompleted == null)) {
+        if (!(timeCompleted == 0)) {
             Date date = new Date(this.timeCompleted);
             DateFormat formatter = new SimpleDateFormat("hh:mm a, MMMMM DD, YYYY");
             String dateFormatted = formatter.format(date);

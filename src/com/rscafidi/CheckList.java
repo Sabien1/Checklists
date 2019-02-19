@@ -10,7 +10,7 @@ public abstract class CheckList {
     String name;
     ArrayList<User> users = new ArrayList<User>();
     ArrayList<Item> items = new ArrayList<Item>();
-    Long timeCreated;
+    long timeCreated;
 
     public CheckList() {
         this.name = "DefaultListName";
@@ -54,7 +54,7 @@ public abstract class CheckList {
                         history.recordTaskCompleted(item.name, item.timeCompleted);
                     }
                     else {
-                        item.timeCompleted = null;
+                        item.timeCompleted = 0;
                         history.removeCompletedTask(item.name);
                     }
                     break;
