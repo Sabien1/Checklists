@@ -6,6 +6,7 @@ public class User {
     String userName;
     ArrayList<CheckList> lists = new ArrayList<CheckList>();
     private String LIST_ERROR_MESSAGE = "The list was not created.";
+    TaskHistory history = new TaskHistory();
 
     User(String name) {
         //System.out.println("construct user");
@@ -86,7 +87,7 @@ public class User {
                         System.out.println("The item does not exist.");
                     }
                     else {
-                        list.editItem(currentItem);
+                        list.editItem(currentItem, history);
                     }
                     break;
                 case 4:

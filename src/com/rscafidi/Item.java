@@ -1,5 +1,6 @@
 package com.rscafidi;
 
+import com.rscafidi.TaskHistory;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,8 +21,9 @@ public class Item {
         timeCreated = System.currentTimeMillis();
     }
 
-    public void setCompleted() {
+    public void setCompleted(TaskHistory history) {
         this.timeCompleted = System.currentTimeMillis();
+
     }
 
     public void printItemDetails() {

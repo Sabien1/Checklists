@@ -21,7 +21,7 @@ public abstract class CheckList {
         this.name = listName;
     }
 
-    public void printItemEditMenu(Item item) {
+    public void printItemEditMenu(Item item, TaskHistory history) {
         System.out.println("Edit Item " + item.name);
         int answer = -1;
         Scanner in = new Scanner(System.in);
@@ -50,10 +50,12 @@ public abstract class CheckList {
                     item.completed = !item.completed;
                     System.out.println("Item status is " + item.completed);
                     if (item.completed) {
-                        item.setCompleted();
+                        item.setCompleted(history);
+                        history.recordTaskCompleted(item.name, item.timeCompleted);
                     }
                     else {
                         item.timeCompleted = null;
+                        history.removeCompletedTask(item.name);
                     }
                     break;
                 case 3:
@@ -71,9 +73,9 @@ public abstract class CheckList {
         }
     }
 
-    public void editItem(Item item){
+    public void editItem(Item item, TaskHistory history){
         item.printItemDetails();
-        printItemEditMenu(item);
+        printItemEditMenu(item, history);
 
     }
 

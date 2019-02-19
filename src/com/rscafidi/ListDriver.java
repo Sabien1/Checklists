@@ -136,6 +136,7 @@ public class ListDriver {
             System.out.println("6 - Remove a user from system");
             System.out.println("7 - Switch User");
             System.out.println("8 - TEST settings");
+            System.out.println("9 - Print graph");
             System.out.println("0 - exit");
             System.out.println();
             System.out.println("Enter menu option: ");
@@ -222,12 +223,15 @@ public class ListDriver {
                         System.out.println("System is currently set to delete after 1 minute.");
                     }
                     System.out.println("1 - Change timer");
-                    System.out.println("0 - exit");
                     answer = getMenuOption();
                     if (answer == 1) {
                         timerToggle = !timerToggle;
                         System.out.println("Timer updated.");
                     }
+                    break;
+                case 9:
+                    System.out.println("Generating graph of completed tasks over the last hour.");
+                    user.history.generateChart();
                     break;
                 case 0:
                     System.out.println("Ok - exiting program.  Lists will be destroyed.");
